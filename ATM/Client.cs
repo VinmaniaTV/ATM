@@ -1,32 +1,55 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Runtime.InteropService;
+using System.Runtime.dll;
 
 namespace ATM
 {
     class Client
     {
-        private int id;
+        private Guid id;
         private int pin;
+        private string firstName;
+        private string lastName;
         private int ammount;
         private bool isCardBlocked = false;
         private int tries = 0;
         private bool isLoggedIn = false;
 
-
-        public Client(int _id, int _pin, int _ammount)
+        public Guid id
         {
-            id = _id;
-            pin = checkPinSizeAndType(_pin) ? _pin : 0000;
-            ammount = _ammount;
+            get { return id; }
+        }
+        public int pin
+        {
+            if (){}
+        }
+        public string Telephone
+        {
+            get { return _telephone; }
+            set { _telephone = value; }
+        }
+        public string DatePremiereCommande
+        {
+            get { return _datePremiereCommande; }
+            set { _datePremiereCommande = value; }
+        }
+        public Commande CommandeActuelle
+        {
+            get { return _commandeActuelle; }
+            set { _commandeActuelle = value; }
+        }
 
+        public Client(Guid _id, int _pin, int _ammount)
+        {
+            this.id = _id;
+            this.pin = checkPinSizeAndType(_pin) ? _pin : 0000;
+            this.ammount = _ammount;
+           
 
         }
 
-        public Client()
-        {
-
-        }
 
 
         private bool checkPinSizeAndType(int pin)
@@ -77,7 +100,7 @@ namespace ATM
 
             return false;
         }
-
+        
 
         public int checkBalance()
         {
@@ -90,6 +113,11 @@ namespace ATM
             if (tries == 3)
             {
                 isCardBlocked = true;
+                Console.WriteLine("Your card is blocked.");
+            }
+            else if (tries < 3)
+            {
+                Console.WriteLine("Your pin is incorrect. You still have " + 3-tries + " tries.");
             }
         }
 
@@ -125,6 +153,26 @@ namespace ATM
             }
         }
 
+        public void addAmmount(int _ammount)
+        {
+            if (isLoggedIn)
+            {
+               
+                if (_ammount>0)
+                {
+                    //add
+                    ammount += _ammount;
+                    Console.WriteLine("you add " + _ammount + "$.");
+                    Console.WriteLine("account: " + ammount + "$.");
+                }
+                
+            }
+            else
+            {
+                Console.WriteLine("You can't add negative or zero ammount of money in your account.");
+            }
+        }
+
         private bool checkAmmount(int _ammount)
         {
             //if ammount>0 <=ammount
@@ -132,6 +180,32 @@ namespace ATM
 
             //else
             return false;
+
+        }
+        public void ChangePin(int new_pin)
+        {
+            if (isLoggedIn)
+            {
+                if (checkPinSizeAndType(new_pin)) { 
+                    Console.WriteLine("Enter your current pin: ");
+                    int checkPin = Convert.ToInt32(Console.ReadLine());
+                    if (validatePin(checkPin))
+                    { 
+                        pin = new_pin;
+                        Console.WriteLine("Your pin has been change.");
+                    }
+                }
+                else
+                {
+                   Console.WriteLine("Your new pin is incorrect.")  
+                }
+                
+            }
+            else
+            {
+                Console.WriteLine("You are not connected.");
+            }
+            
 
         }
 

@@ -6,7 +6,14 @@ namespace ATM
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Hello");
+            Console.WriteLine("      ");
+            Console.WriteLine("Welcome to StockCash, the bank that cares about you");
+            Console.WriteLine("      ");
+            Console.WriteLine("      ");
+            Console.WriteLine("Insert your GUID:");
+            Console.ReadLine();
+            // TO DO: check with the database if 
             var c = new Client(10, 9999, 100000);
 
             int am = c.checkBalance();
