@@ -7,19 +7,19 @@ namespace ATM
     {
         static void Main(string[] args)
         {
+            Rates rate = new Rates();
+            rate.Import("USD");
 
-            string cs = @"URI=file:C:\Users\mende\source\repos\ATM\ATM\database\data.db";
+           // string cs = @"URI=file:C:\Users\mende\source\repos\ATM\ATM\database\data.db";
 
-            using var con = new SQLiteConnection(cs);
-            con.Open();
+           // using var con = new SQLiteConnection(cs);
+           // con.Open();
 
-            using var cmd = new SQLiteCommand(con);
+           // using var cmd = new SQLiteCommand(con);
 
             //cmd.CommandText = "INSERT INTO admin(username,password) VALUES ('julien', '123' )";
             //cmd.ExecuteNonQuery();
-            cmd.CommandText = "Select * from admin";
-            cmd.ExecuteNonQuery();
-            con.Close();
+            //con.Close();
             /*Console.WriteLine("Hello");
             Console.WriteLine("      ");
             Console.WriteLine("Welcome to StockCash, the bank that cares about you");
