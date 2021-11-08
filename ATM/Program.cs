@@ -1,12 +1,26 @@
 ﻿using System;
-
+using System;
+using System.Data.SQLite;
 namespace ATM
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello");
+
+            string cs = @"URI=file:C:\Users\mende\source\repos\ATM\ATM\database\data.db";
+
+            using var con = new SQLiteConnection(cs);
+            con.Open();
+
+            using var cmd = new SQLiteCommand(con);
+
+            //cmd.CommandText = "INSERT INTO admin(username,password) VALUES ('julien', '123' )";
+            //cmd.ExecuteNonQuery();
+            cmd.CommandText = "Select * from admin";
+            cmd.ExecuteNonQuery();
+            con.Close();
+            /*Console.WriteLine("Hello");
             Console.WriteLine("      ");
             Console.WriteLine("Welcome to StockCash, the bank that cares about you");
             Console.WriteLine("      ");
@@ -41,6 +55,7 @@ namespace ATM
             }
             Console.WriteLine("the card is blocked.");
             return;
+            */
         }
     }
 }

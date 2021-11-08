@@ -6,8 +6,6 @@ using System.Linq;
 using System.Text.Json;
 using System.Collections.Generic;
 using System.Text;
-using System.Runtime.InteropService;
-using System.Runtime.dll;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 
@@ -25,7 +23,7 @@ namespace ATM
             this.Username = _username;
             this.Password = _password;
         }
-        private void createClient (Guid _id, int _pin, int _ammount, string _firstName, string _LastName, string _mainCurrency, int _ammountMainAccount, List<String> _currency,List<float> _ammountCurrency)
+        private void createClient(Guid _id, int _pin, int _ammount, string _firstName, string _LastName, string _mainCurrency, int _ammountMainAccount, List<String> _currency, List<float> _ammountCurrency)
         {
             Client client = new Client(_id, _pin, _ammount);
             //client json
@@ -34,12 +32,12 @@ namespace ATM
             jsonObjectList.Add(
                     new MyJsonTypeClient
                     {
-                            Myid=_id,
-                            MyPin= _pin,
-                            MyFirstName= _firstName,
-                            MyLastName= _LastName,
-                            MyammountMainCurrency= _ammount,
-                            MyMainCurrency= _mainCurrency
+                        Myid = _id,
+                        MyPin = _pin,
+                        MyFirstName = _firstName,
+                        MyLastName = _LastName,
+                        MyammountMainCurrency = _ammount,
+                        MyMainCurrency = _mainCurrency
                     }
                     );
             jsonData = JsonConvert.SerializeObject(jsonObjectList, Formatting.Indented);
@@ -55,7 +53,7 @@ namespace ATM
                         new MyJsonTypeCurrency
                         {
                             MyidClient = _id,
-                            MyAmmountCurrency = _ammountCurrency.ElementAt(i) ,
+                            MyAmmountCurrency = _ammountCurrency.ElementAt(i),
                             MyCurrency = _currency.ElementAt(i)
                         }
                         );
@@ -67,31 +65,31 @@ namespace ATM
 
         private void unblockClient(Client client)
         {
-            client.isBlocked = false;
+            client.IsCardBlocked = false;
             // à faire avec la base de données
         }
 
         private void blockClient(Client client)
         {
-            client.isBlocked = true;
+            client.IsCardBlocked = true;
             // à faire avec la base de données
         }
 
-        private void changePin(Client client)
+        private void changePin(Client client, int new_pin)
         {
-            client._pin = true;
+            client.ChangePin(new_pin);
             // à faire avec la base de données
         }
 
         private void resetTries(Client client)
         {
-            client.tries = 0;
+            client.Tries = 0;
             // à faire avec la base de données
         }
 
         private void deleteClient(Client client)
         {
-           // à faire avec la base de données
+            // à faire avec la base de données
         }
 
         private void listeClient()
@@ -100,3 +98,4 @@ namespace ATM
         }
 
     }
+}

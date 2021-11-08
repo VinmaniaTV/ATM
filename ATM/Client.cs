@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Runtime.InteropService;
-using System.Runtime.dll;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using System.IO;
@@ -17,7 +15,8 @@ namespace ATM
         private string firstName;
         private string lastName;
         private int ammountMainAccount;
-        private List<string> account;
+        private List<string> account_name;
+        private List<float> account_ammount;
         private string mainAccount;
         private bool isCardBlocked = false;
         private int tries = 0;
@@ -53,13 +52,18 @@ namespace ATM
             get { return mainAccount; }
         }
 
-         public List<string> Account
+         public List<string> AccountName
         {
-            get { return account; }
-            set { account = value; }
+            get { return account_name; }
+            set { account_name = value; }
+        }
+        private List<float> Account_ammount
+        {
+            get { return account_ammount; }
+            set { account_ammount = value; }
         }
 
-         public bool IsCardBlocked
+        public bool IsCardBlocked
         {
             get { return isCardBlocked; }
             set { isCardBlocked = value; }
@@ -87,7 +91,7 @@ namespace ATM
             this.Id = _id;
             this.Pin = checkPinSizeAndType(_pin) ? _pin : 0000;
             this.AmmountMainAccount = _ammount;
-            this.Account = account;
+            this.AccountName = account;
             this.MainAccount = mainAccount;
           
 
@@ -149,23 +153,19 @@ namespace ATM
         {
             return ammountMainAccount;
         }
-        public int checkBalanceByAccount(string accountsearch)
+        public float checkBalanceByAccount(string accountsearch)
         {
-            int n=0;
-            for (int i =0, i<this.account.lenght, i++)
+            float n=0;
+            for (int i =0; i<this.account_name.Count; i++)
             {
-                if(this.account[i][0]== accountsearch)
+                if(account_name.ElementAt(i)== accountsearch)
                 {
-                    n = this.account[i][1];
+                    n = account_ammount.ElementAt(i);
                 }
             }
             return n;
         }
 
-        public List checkAllBalance()
-        {
-            return account;
-        }
         public void blockCard()
         {
             if (tries == 3)
@@ -175,7 +175,8 @@ namespace ATM
             }
             else if (tries < 3)
             {
-                Console.WriteLine("Your pin is incorrect. You still have " + 3-tries + " tries.");
+                int n = 3 - tries;
+                Console.WriteLine("Your pin is incorrect. You still have " + n + " tries.");
             }
         }
 
@@ -210,7 +211,7 @@ namespace ATM
                 Console.WriteLine("not logged in");
             }
         }
-        public void retrieveAmmountByAccount(int _ammount, string _account)
+        public void retrieveAmmountByAccount(float _ammount, string _account)
         {
             if (isLoggedIn)
             {
@@ -218,13 +219,13 @@ namespace ATM
                 if (b)
                 {
                     //retrieve
-                    for (int i =0, i<this.account.lenght, i++)
+                    for (int i =0; i<account_name.Count; i++)
                      {
-                        if(this.account[i][0]== _account)
+                        if(_account == account_name.ElementAt(i))
                         {
-                                this.account[i][1] -= _ammount;
+                                account_ammount[i] -= _ammount;
                                 Console.WriteLine("you withdrawed " + _ammount + "$.");
-                                Console.WriteLine("account: " + this.account[i][1]+ "$.");
+                                Console.WriteLine("account: " + account_ammount[i]+ " "+ account_name[i] );
                         }
                      }
                 }
@@ -266,13 +267,13 @@ namespace ATM
                 if (_ammount>0)
                 {
                     //add
-                    for (int i =0, i<this.account.lenght, i++)
+                    for (int i =0; i<account_name.Count; i++)
                      {
-                        if(this.account[i][0]== _account)
+                        if(account_name[i]== _account)
                         {
-                                this.account[i][1] += _ammount;
+                               account_ammount[i] += _ammount;
                                 Console.WriteLine("you add " + _ammount + "$.");
-                                Console.WriteLine("account: " + this.account[i][1]+ "$.");
+                                Console.WriteLine("account: " + account_ammount[i]+ " " + account_name[i]);
                         }
                      }
                 }
@@ -294,9 +295,9 @@ namespace ATM
 
         }
 
-        private bool checkAmmountByAccount(int _ammount, string _account)
+        private bool checkAmmountByAccount(float _ammount, string _account)
         {
-            int ammountPrefAccount = checkBalanceByAccount(_account);
+            float ammountPrefAccount = checkBalanceByAccount(_account);
             
             if (ammountPrefAccount > 0 && _ammount <= ammountPrefAccount) return true;
 
@@ -320,7 +321,7 @@ namespace ATM
                 }
                 else
                 {
-                   Console.WriteLine("Your new pin is incorrect.")  
+                    Console.WriteLine("Your new pin is incorrect.");  
                 }
                 
             }
@@ -336,24 +337,27 @@ namespace ATM
             bool existe = false;
             Console.WriteLine("De quelle compte voulez vous envoyer de l'argent?");
             string n = Console.ReadLine();
-            for (int i =0, i<this.account.lenght, i++)
+            for (int i =0; i<account_name.Count; i++)
             {
-              if(this.account[i][0]== n)
+              if(this.account_name[i]== n)
               {
                 existe=true;
               }
             }
             while (!existe)
             {
-                Console.WriteLine("Ce compte n'existe pas. Voulez Vous voir vos compte (Oui ou Non)?")
-                if(Console.ReadLine() == "Oui") { 
-                    Console.WriteLine(checkAllBalance());
+                Console.WriteLine("Ce compte n'existe pas. Voulez Vous voir vos compte (Oui ou Non)?");
+                if(Console.ReadLine() == "Oui") {
+                    for (int h=0; h < account_name.Count; h++)
+                    {
+                        Console.WriteLine( account_ammount[h]+ " "+ account_name[h]);
+                    }
                 }
                 Console.WriteLine("De quelle compte voulez vous envoyer de l'argent?");
-                string n = Console.ReadLine();
-                for (int i =0, i<this.account.lenght, i++)
+                n = Console.ReadLine();
+                for (int i =0; i<account_name.Count; i++)
                 {
-                    if(this.account[i][0]== n)
+                    if(this.account_name[i]== n)
                     {
                         existe=true;
                     }
@@ -361,24 +365,27 @@ namespace ATM
             }
             Console.WriteLine("Vers quel compte voulez vous envoyer de l'argent?");
             string m = Console.ReadLine();
-            for (int i =0, i<this.account.lenght, i++)
+            for (int i =0; i<this.account_name.Count; i++)
             {
-              if(this.account[i][0]== m)
+              if(this.account_name[i]== m)
               {
                 existe=true;
               }
             }
             while (!existe)
             {
-                Console.WriteLine("Ce compte n'existe pas. Voulez Vous voir vos compte (Oui ou Non)?")
-                if(Console.ReadLine() == "Oui") { 
-                    Console.WriteLine(checkAllBalance());
+                Console.WriteLine("Ce compte n'existe pas. Voulez Vous voir vos compte (Oui ou Non)?");
+                if(Console.ReadLine() == "Oui") {
+                    for (int h = 0; h < account_name.Count; h++)
+                    {
+                        Console.WriteLine(account_ammount[h] + " " + account_name[h]);
+                    }
                 }
                 Console.WriteLine("De quelle compte voulez vous envoyer de l'argent?");
-                string n = Console.ReadLine();
-                for (int i =0, i<this.account.lenght, i++)
+                 n = Console.ReadLine();
+                for (int i =0; i<account_name.Count; i++)
                 {
-                    if(this.account[i][0]== m)
+                    if(this.account_name[i]== m)
                     {
                         existe=true;
                     }
@@ -390,11 +397,11 @@ namespace ATM
             {
                 retrieveAmmountByAccount(s,n);
                 addAmmountByAccount(s,m);
-                Console.WriteLine("L'opération a été un succés.")
+                Console.WriteLine("L'opération a été un succés.");
             }
             else
             {
-                Console.WriteLine("Vous n'avez pas assez d'argent sur votre compte")
+                Console.WriteLine("Vous n'avez pas assez d'argent sur votre compte");
             }
 
         }
