@@ -2,7 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\ATM",
-    "\\ATM\\bin"
+    "\\ATM\\bin",
+    "\\ATM\\bin\\Release\\net6.0",
+    "\\ATM\\json"
   ],
   "SelectedNode": "\\ATM\\Client.cs",
   "PreviewInSolutionExplorer": false

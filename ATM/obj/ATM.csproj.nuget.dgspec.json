@@ -1,27 +1,28 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\vinma\\Desktop\\Projets\\ATM\\ATM\\ATM.csproj": {}
+    "C:\\Users\\mende\\source\\repos\\ATM\\ATM\\ATM.csproj": {}
   },
   "projects": {
-    "C:\\Users\\vinma\\Desktop\\Projets\\ATM\\ATM\\ATM.csproj": {
+    "C:\\Users\\mende\\source\\repos\\ATM\\ATM\\ATM.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\vinma\\Desktop\\Projets\\ATM\\ATM\\ATM.csproj",
+        "projectUniqueName": "C:\\Users\\mende\\source\\repos\\ATM\\ATM\\ATM.csproj",
         "projectName": "ATM",
-        "projectPath": "C:\\Users\\vinma\\Desktop\\Projets\\ATM\\ATM\\ATM.csproj",
-        "packagesPath": "C:\\Users\\vinma\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\vinma\\Desktop\\Projets\\ATM\\ATM\\obj\\",
+        "projectPath": "C:\\Users\\mende\\source\\repos\\ATM\\ATM\\ATM.csproj",
+        "packagesPath": "C:\\Users\\mende\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\mende\\source\\repos\\ATM\\ATM\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\vinma\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\mende\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {}
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0": {
@@ -38,6 +39,32 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.JsonPatch": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            },
+            "Microsoft.AspNetCore.Mvc.Formatters.Json": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.Extensions.Configuration.Json": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            },
+            "System.Runtime.Serialization.Json": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            },
+            "System.Text.Json": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
