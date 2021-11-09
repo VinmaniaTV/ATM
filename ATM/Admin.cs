@@ -6,8 +6,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Collections.Generic;
 using System.Text;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
+
 
 
 namespace ATM
@@ -18,44 +17,53 @@ namespace ATM
         private string password;
         public string Username { get { return username; } set { username = value; } }
         private string Password { get { return password; } set { password = value; } }
-        private void admin(string _username, string _password)
+        public Admin(string _username, string _password)
         {
             this.Username = _username;
             this.Password = _password;
         }
-        private void createClient(Client c,int pin)
+        public Client createClient(Guid _id, int _pin, string _FirstName, string _LastName, float _ammount, List<string> currency, string maincurrency)
         {
+            //api
+            ApiAccess apiAccess = new ApiAccess();
+            List<float> currency_ammount = apiAccess.AmmountCurrencies(maincurrency, currency);
+            
+            Client c = new Client(_id, _pin,  _FirstName, _LastName, _ammount, currency,currency_ammount, maincurrency);          
             //json
             ClientJsonAccess js = new ClientJsonAccess();
-            js.CreateClient(c.Id, pin, c.FirstName, c.LastName, c.AmmountMainCurrency, c.CurrencyName, c.Currency_ammount, c.Maincurrency);
+            js.CreateClient(c.Id, _pin, c.FirstName, c.LastName, c.AmmountMainCurrency, c.CurrencyName, c.Currency_ammount, c.Maincurrency);
             // à faire avec la base de données
             ClassDBAccess cb = new ClassDBAccess();
-            cb.CreateClient(c.Id,pin,c.FirstName,c.LastName,c.AmmountMainCurrency,c.CurrencyName,c.Currency_ammount,c.Maincurrency); ;
+            cb.CreateClient(c.Id,_pin,c.FirstName,c.LastName,c.AmmountMainCurrency,c.CurrencyName,c.Currency_ammount,c.Maincurrency); ;
+            c.Tries= 0;
+            c.IsCardBlocked = false;
+            c.IsLoggedIn = false;
             Console.WriteLine("Le client a été crée");
+            return c;
         }
 
-        private void unblockClient(Client client)
+        public void unblockClient(Client client)
         {
             client.IsCardBlocked = false;
 
         }
 
-        private void blockClient(Client client)
+        public void blockClient(Client client)
         {
             client.IsCardBlocked = true;
         }
 
-        private void changePin(Client client, int new_pin)
+        public void changePin(Client client, int new_pin)
         {
             client.ChangePin(new_pin);
         }
 
-        private void resetTries(Client client)
+        public void resetTries(Client client)
         {
             client.Tries = 0;
         }
 
-        private void deleteClient(Client client)
+        public void deleteClient(Client client)
         {
             //effacer dans json
             ClientJsonAccess js = new ClientJsonAccess();
@@ -63,9 +71,10 @@ namespace ATM
             // effacer dans la base de données
             ClassDBAccess cb = new ClassDBAccess();
             cb.DeleteClient(client.Id);
+            Console.WriteLine("The client has been deleted");
         }
 
-        private void listeClient()
+        public void GetAllClient()
         {
             // affiche liste des clients dans le json
             ClientJsonAccess js = new ClientJsonAccess();
@@ -74,14 +83,14 @@ namespace ATM
             ClassDBAccess cb = new ClassDBAccess();
             cb.GetAll();
         }
-        private void GetClient(Client c)
+        public void GetClient(Guid c)
         {
             // affiche les informations client du fichier json
             ClientJsonAccess js = new ClientJsonAccess();
-            js.GetClient(c.Id);
+            js.GetClient(c);
             // affiche les informations client de la base de données
             ClassDBAccess cb = new ClassDBAccess();
-            cb.GetClient(c.Id);
+            cb.GetClient(c);
         }
 
     }

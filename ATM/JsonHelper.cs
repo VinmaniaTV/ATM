@@ -19,6 +19,11 @@ namespace ATM
             var jsonObjectList = JsonConvert.DeserializeObject<API_Obj>(jsonData);
             return jsonObjectList;
         }
+        public List<MyJsonTypeAdmin> DeserializeListAdmin(string jsonData)
+        {
+            var jsonObjectList = JsonConvert.DeserializeObject<List<MyJsonTypeAdmin>>(jsonData);
+            return jsonObjectList;
+        }
         public string SerializeClient(List<MyJsonTypeClient> jsonData){
             string jsonObjectList = JsonConvert.SerializeObject(jsonData,Formatting.Indented);
             return jsonObjectList;
@@ -27,7 +32,11 @@ namespace ATM
             var jsonObjectList = JsonConvert.SerializeObject(jsonData,Formatting.Indented);
             return jsonObjectList;
         }
-
+        public string SerializeAdmin(List<MyJsonTypeAdmin> jsonData)
+        {
+            var jsonObjectList = JsonConvert.SerializeObject(jsonData, Formatting.Indented);
+            return jsonObjectList;
+        }
 
     }
 }

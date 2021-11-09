@@ -12,11 +12,11 @@ namespace ATM
             var jsonData = File.ReadAllText(@"../../../json/Client.json");
             JsonHelper js = new JsonHelper();
             var jsonObjectList = js.DeserializeListClient(jsonData);
-            for (int i=0;i> jsonObjectList.Count ;i++){
+            for (int i=0;i< jsonObjectList.Count ;i++){
                 Console.Write(jsonObjectList[i]);
                 }
             var jsonObjectListCurrency = js.DeserializeListCurency(jsonData);
-            for (int i=0;i> jsonObjectListCurrency.Count ;i++){
+            for (int i=0;i< jsonObjectListCurrency.Count ;i++){
                 Console.Write(jsonObjectListCurrency[i]);
                 }
 
@@ -64,13 +64,13 @@ namespace ATM
             var jsonData = File.ReadAllText(@"../../../json/Client.json");
             JsonHelper js = new JsonHelper();
             var jsonObjectList = js.DeserializeListClient(jsonData);
-            for (int i=0;i> jsonObjectList.Count ;i++){
+            for (int i=0;i< jsonObjectList.Count ;i++){
                 if (jsonObjectList[i].Myid == guid){
                     Console.Write(jsonObjectList[i]);
                 }
             }
             var jsonObjectListCurrency = js.DeserializeListCurency(jsonData);
-            for (int i=0;i> jsonObjectList.Count ;i++){
+            for (int i=0;i< jsonObjectList.Count ;i++){
                 if(jsonObjectListCurrency[i].MyidClient == guid){
                     Console.Write(jsonObjectListCurrency[i]);
                 }
@@ -78,29 +78,90 @@ namespace ATM
             }
 
         }
+        public Client client(Guid guid)
+        {
+            string id = guid.ToString();
+            var jsonData = File.ReadAllText(@"../../../json/Client.json");
+            JsonHelper js = new JsonHelper();
+            var jsonObjectList = js.DeserializeListClient(jsonData);
+            Client c = new Client();
+            List<string> l = new List<string>();
+            List<float> f = new List<float>();
+            c.Currency_ammount = f;
+            c.CurrencyName = l;
+            for (int i = 0; i < jsonObjectList.Count; i++)
+            {
+
+                if (jsonObjectList[i].Myid == guid)
+                {
+                    c.Id = jsonObjectList[i].Myid;
+                    c.Pin = jsonObjectList[i].MyPin;
+                    c.FirstName = jsonObjectList[i].MyFirstName;
+                    c.LastName = jsonObjectList[i].MyLastName;
+                    c.AmmountMainCurrency = jsonObjectList[i].MyammountMainCurrency;
+                    c.Maincurrency = jsonObjectList[i].MyMainCurrency;
+                }
+
+
+            }
+            var jsonDataCurrency = File.ReadAllText(@"../../../json/Currency.json");
+            var jsonObjectListCurrency = js.DeserializeListCurency(jsonDataCurrency);
+            for (int i = 0; i < jsonObjectListCurrency.Count; i++)
+            {
+
+                if (jsonObjectListCurrency[i].MyidClient == guid)
+                {
+                    c.Currency_ammount.Add(jsonObjectListCurrency[i].MyAmmountCurrency);
+                    c.CurrencyName.Add(jsonObjectListCurrency[i].MyCurrency);
+                }
+
+            }
+            return c;
+        }
+        public bool GetClientId(Guid guid)
+        {
+            string id = guid.ToString();
+            var jsonData = File.ReadAllText(@"../../../json/Client.json");
+            JsonHelper js = new JsonHelper();
+            var jsonObjectList = js.DeserializeListClient(jsonData);
+            for (int i = 0; i < jsonObjectList.Count; i++)
+            {
+                if (jsonObjectList[i].Myid == guid)
+                {
+                    return true;
+                }
+
+            }
+            return false;
+        }
+       
+                            
         public int GetClientPin(Guid guid){
             string id = guid.ToString();
             var jsonData = File.ReadAllText(@"../../../json/Client.json");
             JsonHelper js = new JsonHelper();
             var jsonObjectList = js.DeserializeListClient(jsonData);
-            for (int i = 0; i > jsonObjectList.Count; i++)
+            int pinClient = 0;
+            for (int i = 0; i < jsonObjectList.Count; i++)
             {
                 if (jsonObjectList[i].Myid == guid)
                 {
-                    Console.Write(jsonObjectList[i].MyPin);
-                    int pinClient = jsonObjectList[i].MyPin;
+                    Console.WriteLine(jsonObjectList[i].MyPin);
+                    pinClient = jsonObjectList[i].MyPin;
                     return pinClient;
                 }
 
             }
             return 0;
         }
+       
+
         public void UpdateClientInt(Guid guid, string nom_attribut, int new_pin)
         {
                         var jsonData = File.ReadAllText(@"../../../json/Client.json");
                         JsonHelper js = new JsonHelper();
                         var jsonObjectList = js.DeserializeListClient(jsonData);
-                        for (int i=0;i> jsonObjectList.Count ;i++){
+                        for (int i=0;i< jsonObjectList.Count ;i++){
                             if(jsonObjectList[i].Myid == guid){
                                 jsonObjectList[i].MyPin = new_pin;
                                 Console.WriteLine("mit dans le Json");
@@ -116,7 +177,7 @@ namespace ATM
                         var jsonData = File.ReadAllText(@"../../../json/Client.json");
                         JsonHelper js = new JsonHelper();
                         var jsonObjectList = js.DeserializeListClient(jsonData);
-                        for (int i=0;i> jsonObjectList.Count ;i++){
+                        for (int i=0;i< jsonObjectList.Count ;i++){
                             if(jsonObjectList[i].Myid == guid){
                                 if ("MyLastName" == MyChange)
                                  {
@@ -143,7 +204,7 @@ namespace ATM
             var jsonData = File.ReadAllText(@"../../../json/Client.json");
             JsonHelper js = new JsonHelper();
             var jsonObjectList = js.DeserializeListClient(jsonData);
-            for (int i = 0; i > jsonObjectList.Count; i++)
+            for (int i = 0; i < jsonObjectList.Count; i++)
             {
                 if (jsonObjectList[i].Myid == guid)
                 {
@@ -158,7 +219,7 @@ namespace ATM
             var jsonData = File.ReadAllText(@"../../../json/Currency.json");
             JsonHelper js = new JsonHelper();
             var jsonObjectList = js.DeserializeListCurency(jsonData);
-            for (int i = 0; i > jsonObjectList.Count; i++)
+            for (int i = 0; i < jsonObjectList.Count; i++)
             {
                 if (jsonObjectList[i].MyidClient == guid)
                 {
@@ -174,7 +235,7 @@ namespace ATM
             var jsonData = File.ReadAllText(@"../../../json/Currency.json");
             JsonHelper js = new JsonHelper();
             var jsonObjectList = js.DeserializeListCurency(jsonData);
-            for (int i = 0; i > jsonObjectList.Count; i++)
+            for (int i = 0; i < jsonObjectList.Count; i++)
             {
                 if (jsonObjectList[i].MyidClient == guid)
                 {
@@ -189,7 +250,7 @@ namespace ATM
             var jsonData = File.ReadAllText(@"../../../json/Client.json");
             JsonHelper js = new JsonHelper();
             var jsonObjectList = js.DeserializeListClient(jsonData);
-            for (int i=0;i> jsonObjectList.Count ;i++){
+            for (int i=0;i< jsonObjectList.Count ;i++){
                 if(jsonObjectList[i].Myid == guid){
                     jsonObjectList.RemoveAt(i);
                     Console.WriteLine("Le Client est supprimé");
@@ -200,7 +261,7 @@ namespace ATM
 
             var jsonDataCurrency = File.ReadAllText(@"../../../json/Currency.json");
             var jsonObjectListCurrency = js.DeserializeListCurency(jsonDataCurrency);
-            for (int i=0;i> jsonObjectListCurrency.Count ;i++){
+            for (int i=0;i< jsonObjectListCurrency.Count ;i++){
                 if(jsonObjectListCurrency[i].MyidClient == guid){
                     jsonObjectListCurrency.RemoveAt(i);
                     Console.WriteLine("Le Client est supprimé");
@@ -209,6 +270,26 @@ namespace ATM
             jsonDataCurrency = js.SerializeCurrency(jsonObjectListCurrency);
             File.WriteAllText(@"../../../json/Currency.json", jsonDataCurrency);
         }
+        public bool GetAdmin(string username, string password)
+        {
+            var jsonData = File.ReadAllText(@"../../../json/Admin.json");
+            JsonHelper js = new JsonHelper();
+            var jsonObjectList = js.DeserializeListAdmin(jsonData);
+            bool result = false;
+            for (int i = 0; i < jsonObjectList.Count; i++)
+            {
+                if (jsonObjectList[i].MyUsername == username)
+                {
+                    if (jsonObjectList[i].MyPassword == password)
+                    {
+                       result = true;
+                    }
+                }
+
+            }
+            return result;   
+        }
+
 
 
     }

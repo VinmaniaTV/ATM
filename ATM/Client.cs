@@ -234,41 +234,7 @@ namespace ATM
                 Console.WriteLine("not logged in");
             }
         }
-        public void retrieveAmmountByCurrency(float _ammount, string _currency)
-        {
-            if (IsLoggedIn)
-            {
-                bool b = checkAmmountBycurrency(_ammount,_currency);
-                if (b)
-                {
-                    //retrieve
-                    for (int i =0; i<CurrencyName.Count; i++)
-                     {
-                        if(_currency == CurrencyName[i])
-                        {
-                                Currency_ammount[i] -= _ammount;
-                                //json
-                                ClientJsonAccess js = new ClientJsonAccess();
-                                js.UpdateCurrencyFloat(Id, " "," ", Currency_ammount[i]);
-                                //base de données
-                                ClassDBAccess cb = new ClassDBAccess();
-                                cb.UpdateCurrencyFloat(Id, "ammount", CurrencyName[i], Currency_ammount[i]);
-                                Console.WriteLine("you withdrawed " + _ammount + "$.");
-                                Console.WriteLine("currency: " + Currency_ammount[i]+ " "+ CurrencyName[i] );
-                        }
-                     }
-                }
-                else
-                {
-                    Console.WriteLine("you dont have enought money");
-                }
-
-            }
-            else
-            {
-                Console.WriteLine("not logged in");
-            }
-        }
+        
         public void addAmmountMainCurrency(float _ammount)
         {
             if (IsLoggedIn)
@@ -294,37 +260,7 @@ namespace ATM
                 Console.WriteLine("You can't add negative or zero ammount of money in your currency.");
             }
         }
-        public void addAmmountByCurrency(float _ammount,string _currency)
-        {
-            if (IsLoggedIn)
-            {
-               
-                if (_ammount>0)
-                {
-                    //add
-                    for (int i =0; i<CurrencyName.Count; i++)
-                     {
-                        if(CurrencyName[i]== _currency)
-                        {
-                                Currency_ammount[i] += _ammount;
-                                //json
-                                ClientJsonAccess js = new ClientJsonAccess();
-                                js.UpdateCurrencyFloat(Id, " ", " ", Currency_ammount[i]);
-                                //base de données
-                                ClassDBAccess cb = new ClassDBAccess();
-                                cb.UpdateCurrencyFloat(Id, "ammount", CurrencyName[i], Currency_ammount[i]);
-                                Console.WriteLine("you add " + _ammount + "$.");
-                                Console.WriteLine("currency: " + Currency_ammount[i]+ " " + CurrencyName[i]);
-                        }
-                     }
-                }
-                
-            }
-            else
-            {
-                Console.WriteLine("You can't add negative or zero ammount of money in your currency.");
-            }
-        }
+       
 
         private bool checkAmmount(float _ammount)
         {
@@ -389,8 +325,8 @@ namespace ATM
                     string t = Maincurrency;
                     float s = AmmountMainCurrency;
                     Maincurrency = CurrencyName[i];
-                    AmmountMainCurrency = Currency_ammount[i];
-                    Currency_ammount[i] = s;
+                    AmmountMainCurrency = Currency_ammount[i]*s;
+                    Currency_ammount[i] = 1/Currency_ammount[i];
                     CurrencyName[i] = t;
                     //json
                     ClientJsonAccess js =new ClientJsonAccess();
