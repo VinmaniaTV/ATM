@@ -8,7 +8,7 @@ namespace ATM
         public int MyPin { get; set; }
         public string MyFirstName { get; set; }
         public string MyLastName { get; set; }
-        public int MyammountMainCurrency { get; set; }
+        public float MyammountMainCurrency { get; set; }
         public string MyMainCurrency { get; set; }
     }
 }
