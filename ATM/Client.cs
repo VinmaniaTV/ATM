@@ -168,6 +168,7 @@ namespace ATM
 
         public float checkBalance()
         {
+            Console.WriteLine(AmmountMainCurrency);
             return AmmountMainCurrency;
         }
         public float checkBalanceBycurrency(string currencysearch)
@@ -220,8 +221,8 @@ namespace ATM
                     //base de données
                     ClassDBAccess cb = new ClassDBAccess();
                     cb.UpdateClientFloat(Id,"myAmmountCurrency",AmmountMainCurrency);
-                    Console.WriteLine("you withdrawed " + _ammount + "$.");
-                    Console.WriteLine("currency: " + AmmountMainCurrency + "$.");
+                    Console.WriteLine("you withdrawed " + _ammount + " " + Maincurrency + ".");
+                    Console.WriteLine("currency: " + AmmountMainCurrency +" "+ Maincurrency + ".");
                 }
                 else
                 {
@@ -250,8 +251,8 @@ namespace ATM
                     //base de données
                     ClassDBAccess cb = new ClassDBAccess();
                     cb.UpdateClientFloat(Id, "myAmmountCurrency", AmmountMainCurrency);
-                    Console.WriteLine("you add " + _ammount + "$.");
-                    Console.WriteLine("currency: " + AmmountMainCurrency + "$.");
+                    Console.WriteLine("you add " + _ammount + " " + Maincurrency + ".");
+                    Console.WriteLine("currency: " + AmmountMainCurrency + " " + Maincurrency + ".");
                 }
                 
             }

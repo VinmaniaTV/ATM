@@ -21,8 +21,7 @@ namespace ATM
                 Console.WriteLine("Username:");
                 list.Add(Console.ReadLine());
                 Console.WriteLine("Password:");
-                list.Add(Console.ReadLine());
-                
+                list.Add(Console.ReadLine());              
                 ClientJsonAccess js = new ClientJsonAccess();
                 bool cho =js.GetAdmin(list[0], list[1]);
                 if (!cho)
@@ -40,7 +39,7 @@ namespace ATM
                     {
                         if (module == "create client")
                         {
-                            Console.WriteLine("guid:");
+                            Console.WriteLine("guid (format guid):");
                             Guid guid = Guid.Parse(Console.ReadLine());
                             Console.WriteLine("Pin:");
                             int pin = Convert.ToInt32(Console.ReadLine());
@@ -103,7 +102,7 @@ namespace ATM
                         {
                             admin.GetAllClient();
                         }
-                        if (module == "getClient")
+                        if (module == "GetClient")
                         {
                             Console.WriteLine("Do you know his guid? (Yes ou No)");
                             string known = Console.ReadLine();
@@ -153,7 +152,10 @@ namespace ATM
                         {
                             Console.WriteLine("you are connected");
                             Client client = js.client(id);
-                            Console.WriteLine("what do you want to do? (View All,Addmoney,retrivemoney,change pin,check ammount,block card,change main currency");
+                            client.IsLoggedIn = true;
+                            client.IsCardBlocked = false;
+                            client.Tries = 0;
+                            Console.WriteLine("what do you want to do? (View All,Addmoney,retrivemoney,change pin,check ammount,block card,change main currency)");
                             string s = Console.ReadLine();
                             if (s == "Addmoney")
                             {

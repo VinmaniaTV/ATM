@@ -13,11 +13,11 @@ namespace ATM
             JsonHelper js = new JsonHelper();
             var jsonObjectList = js.DeserializeListClient(jsonData);
             for (int i=0;i< jsonObjectList.Count ;i++){
-                Console.Write(jsonObjectList[i]);
+                Console.WriteLine(jsonObjectList[i].Myid + " " + jsonObjectList[i].MyFirstName + " " + jsonObjectList[i].MyLastName + " " + jsonObjectList[i].MyMainCurrency + " " + jsonObjectList[i].MyPin + " " + jsonObjectList[i].MyammountMainCurrency);
                 }
             var jsonObjectListCurrency = js.DeserializeListCurency(jsonData);
             for (int i=0;i< jsonObjectListCurrency.Count ;i++){
-                Console.Write(jsonObjectListCurrency[i]);
+                Console.WriteLine(jsonObjectListCurrency[i].MyidClient + " " + jsonObjectListCurrency[i].MyCurrency + " " + jsonObjectListCurrency[i].MyAmmountCurrency);
                 }
 
         }
@@ -64,15 +64,16 @@ namespace ATM
             var jsonData = File.ReadAllText(@"../../../json/Client.json");
             JsonHelper js = new JsonHelper();
             var jsonObjectList = js.DeserializeListClient(jsonData);
+            Console.WriteLine(jsonObjectList[0]);
             for (int i=0;i< jsonObjectList.Count ;i++){
                 if (jsonObjectList[i].Myid == guid){
-                    Console.Write(jsonObjectList[i]);
+                    Console.WriteLine(jsonObjectList[i].Myid + " " + jsonObjectList[i].MyFirstName + " " + jsonObjectList[i].MyLastName+ " " + jsonObjectList[i].MyMainCurrency + " " + jsonObjectList[i].MyPin + " " + jsonObjectList[i].MyammountMainCurrency);
                 }
             }
             var jsonObjectListCurrency = js.DeserializeListCurency(jsonData);
             for (int i=0;i< jsonObjectList.Count ;i++){
                 if(jsonObjectListCurrency[i].MyidClient == guid){
-                    Console.Write(jsonObjectListCurrency[i]);
+                    Console.WriteLine(jsonObjectListCurrency[i].MyidClient +" "+ jsonObjectListCurrency[i].MyCurrency + " " + jsonObjectListCurrency[i].MyAmmountCurrency);
                 }
 
             }

@@ -3,5 +3,25 @@
     "MyidClient": "9245fe4a-d402-451c-b9ed-9c1a04247482",
     "MyAmmountCurrency": 1.02,
     "MyCurrency": "dollards"
+  },
+  {
+    "MyidClient": "5c552b96-526d-418e-ace3-f67965dd7fe3",
+    "MyAmmountCurrency": 0.2723,
+    "MyCurrency": "USD"
+  },
+  {
+    "MyidClient": "5c552b96-526d-418e-ace3-f67965dd7fe3",
+    "MyAmmountCurrency": 0.2351,
+    "MyCurrency": "EUR"
+  },
+  {
+    "MyidClient": "0c3d231a-adc6-4fcb-9856-a802e9d790e5",
+    "MyAmmountCurrency": 3.67242,
+    "MyCurrency": "USD"
+  },
+  {
+    "MyidClient": "0c3d231a-adc6-4fcb-9856-a802e9d790e5",
+    "MyAmmountCurrency": 3.67242,
+    "MyCurrency": "USD"
   }
 ]
